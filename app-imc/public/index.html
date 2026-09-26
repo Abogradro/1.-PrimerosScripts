@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Mi Control Corporal</title>
+  <meta name="description" content="Calcula tu índice de masa corporal y tu grasa corporal estimada, y lleva tu historial.">
+  <meta name="theme-color" content="#0f766e">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="cabecera">
+    <h1>Mi Control Corporal</h1>
+    <p>Anota tu peso y talla para ver tu índice de masa corporal y tu grasa estimada.</p>
+  </header>
+
+  <main>
+    <form id="formulario" class="tarjeta" novalidate>
+      <div class="fila">
+        <label>
+          Peso (kg)
+          <input id="peso" name="peso" type="text" inputmode="decimal" placeholder="Ej. 70.5" required autocomplete="off">
+        </label>
+        <label>
+          Talla (m)
+          <input id="talla" name="talla" type="text" inputmode="decimal" placeholder="Ej. 1.70" required autocomplete="off">
+        </label>
+      </div>
+
+      <details id="extra">
+        <summary>Estimar grasa corporal <span class="opcional">(opcional)</span></summary>
+        <div class="fila">
+          <label>
+            Edad
+            <input id="edad" name="edad" type="text" inputmode="numeric" placeholder="Ej. 40" autocomplete="off">
+          </label>
+          <fieldset class="sexo">
+            <legend>Sexo</legend>
+            <label class="opcion"><input type="radio" name="sexo" value="mujer"> Mujer</label>
+            <label class="opcion"><input type="radio" name="sexo" value="hombre"> Hombre</label>
+          </fieldset>
+        </div>
+      </details>
+
+      <p id="error" class="error" role="alert" hidden></p>
+      <button id="boton" type="submit">Calcular</button>
+    </form>
+
+    <section id="resultado" class="tarjeta" hidden aria-live="polite">
+      <p class="etiqueta">Tu índice de masa corporal</p>
+      <p class="imc"><span id="r-imc">--</span></p>
+      <p id="r-clasificacion" class="insignia">--</p>
+
+      <div class="escala" aria-hidden="true">
+        <div class="barra">
+          <span class="s bajo"></span><span class="s normal"></span><span class="s sobrepeso"></span>
+          <span class="s obesidad1"></span><span class="s obesidad2"></span><span class="s obesidad3"></span>
+        </div>
+        <span id="marcador" class="marcador"></span>
+        <div class="marcas"><span>15</span><span>18.5</span><span>25</span><span>30</span><span>35</span><span>40</span></div>
+      </div>
+
+      <p id="r-consejo" class="consejo"></p>
+
+      <dl class="datos">
+        <div><dt>Peso saludable para tu talla</dt><dd id="r-rango">--</dd></div>
+        <div><dt id="r-dif-titulo">Diferencia</dt><dd id="r-dif">--</dd></div>
+        <div id="bloque-grasa" hidden><dt>Grasa corporal estimada</dt><dd id="r-grasa">--</dd></div>
+      </dl>
+      <p class="nota">Es una referencia general y no reemplaza la opinión de un médico.</p>
+    </section>
+
+    <section class="tarjeta">
+      <div class="titulo-historial">
+        <h2>Mi historial</h2>
+        <button id="borrar" type="button" class="enlace" hidden>Borrar todo</button>
+      </div>
+      <p class="nota">Se guarda solo en este celular; nadie más lo ve.</p>
+      <ol id="historial" class="historial"></ol>
+      <p id="vacio" class="vacio">Aún no tienes mediciones.</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
